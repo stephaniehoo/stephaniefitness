@@ -1,174 +1,129 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
 
-  .fp-wrap {
-    --fp-bg: #0f0f0f;
-    --fp-surface: #1a1a1a;
-    --fp-surface-2: #222222;
-    --fp-border: #2a2a2a;
-    --fp-text: #e8e4df;
-    --fp-text-dim: #8a8580;
-    --fp-peach: #f4a574;
-    --fp-rose: #e87c8a;
-    --fp-mint: #7ecbb4;
-    --fp-lavender: #a89ccf;
-    --fp-sky: #74b4d4;
-    --fp-gold: #d4a843;
-    --fp-glow-peach: rgba(244,165,116,0.08);
-    --fp-glow-rose: rgba(232,124,138,0.08);
-    --fp-glow-mint: rgba(126,203,180,0.08);
+  .fp-wrap{--fp-bg:#0f0f0f;--fp-surface:#1a1a1a;--fp-surface-2:#222;--fp-border:#2a2a2a;--fp-text:#e8e4df;--fp-text-dim:#8a8580;--fp-peach:#f4a574;--fp-rose:#e87c8a;--fp-mint:#7ecbb4;--fp-lavender:#a89ccf;--fp-sky:#74b4d4;--fp-gold:#d4a843;--fp-glow-peach:rgba(244,165,116,.08);--fp-glow-rose:rgba(232,124,138,.08);--fp-glow-mint:rgba(126,203,180,.08);font-family:'DM Sans',sans-serif;background:var(--fp-bg);color:var(--fp-text);line-height:1.6;overflow-x:hidden;box-sizing:border-box;-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom,0)}
+  .fp-wrap *,.fp-wrap *::before,.fp-wrap *::after{margin:0;padding:0;box-sizing:border-box}
+  .fp-wrap .fp-hero{position:relative;padding:48px 20px 40px;padding-top:calc(48px + env(safe-area-inset-top,0));text-align:center;overflow:hidden}
+  .fp-wrap .fp-hero::before{content:'';position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(244,165,116,.12) 0%,rgba(232,124,138,.06) 40%,transparent 70%);pointer-events:none}
+  .fp-wrap .fp-hero-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--fp-peach);margin-bottom:14px;font-weight:500}
+  .fp-wrap .fp-hero h1{font-family:'Playfair Display',serif;font-size:clamp(28px,7vw,48px);font-weight:700;line-height:1.15;margin-bottom:12px;background:linear-gradient(135deg,var(--fp-text) 0%,var(--fp-peach) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .fp-wrap .fp-hero p{color:var(--fp-text-dim);font-size:14px;max-width:380px;margin:0 auto;line-height:1.5}
+  .fp-wrap .fp-stats-row{display:flex;justify-content:center;gap:20px;margin-top:28px;flex-wrap:wrap}
+  .fp-wrap .fp-stat{text-align:center;min-width:60px}
+  .fp-wrap .fp-stat-value{font-size:22px;font-weight:700;color:var(--fp-peach)}
+  .fp-wrap .fp-stat-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--fp-text-dim);margin-top:2px}
+  .fp-wrap .fp-container{max-width:720px;margin:0 auto;padding:0 16px}
+  .fp-wrap .fp-section-header{display:flex;align-items:center;gap:12px;margin:40px 0 16px}
+  .fp-wrap .fp-section-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+  .fp-wrap .fp-section-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700}
+  .fp-wrap .fp-section-subtitle{font-size:11px;color:var(--fp-text-dim);letter-spacing:1px;text-transform:uppercase}
+  .fp-wrap .fp-tabs{display:flex;gap:3px;background:var(--fp-surface);border-radius:14px;padding:4px;margin-bottom:14px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .fp-wrap .fp-tabs::-webkit-scrollbar{display:none}
+  .fp-wrap .fp-tab{flex:0 0 auto;min-width:48px;padding:10px 8px;text-align:center;font-size:12px;font-weight:500;border-radius:10px;cursor:pointer;color:var(--fp-text-dim);transition:all .25s;white-space:nowrap;border:none;background:none;font-family:inherit;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+  .fp-wrap .fp-tab:hover{color:var(--fp-text)}
+  .fp-wrap .fp-tab.fp-active{background:var(--fp-surface-2);color:var(--fp-text);box-shadow:0 2px 8px rgba(0,0,0,.3)}
+  .fp-wrap .fp-tab-day{font-size:9px;display:block;color:var(--fp-text-dim);margin-top:1px}
+  .fp-wrap .fp-tab.fp-rest .fp-tab-day{color:var(--fp-mint)}
+  .fp-wrap .fp-day{display:none;animation:fpFadeUp .3s ease}
+  .fp-wrap .fp-day.fp-active{display:block}
+  @keyframes fpFadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .fp-wrap .fp-day-header{background:var(--fp-surface);border:1px solid var(--fp-border);border-radius:14px;padding:16px;margin-bottom:10px;display:flex;align-items:center;gap:12px}
+  .fp-wrap .fp-day-badge{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+  .fp-wrap .fp-day-name{font-weight:700;font-size:16px}
+  .fp-wrap .fp-day-focus{font-size:12px;color:var(--fp-text-dim)}
+  .fp-wrap .fp-day-duration{margin-left:auto;font-size:11px;color:var(--fp-mint);background:rgba(126,203,180,.1);padding:4px 10px;border-radius:20px;white-space:nowrap}
+  .fp-wrap .fp-exercise{background:var(--fp-surface);border:1px solid var(--fp-border);border-radius:14px;margin-bottom:8px;overflow:hidden}
+  .fp-wrap .fp-exercise-top{display:flex;align-items:center;gap:10px;padding:14px;cursor:pointer;min-height:56px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+  .fp-wrap .fp-exercise-num{width:28px;height:28px;border-radius:8px;background:var(--fp-surface-2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--fp-text-dim);flex-shrink:0}
+  .fp-wrap .fp-exercise-info{flex:1;min-width:0}
+  .fp-wrap .fp-exercise-name{font-weight:600;font-size:13px;line-height:1.3}
+  .fp-wrap .fp-exercise-detail{font-size:11px;color:var(--fp-text-dim);margin-top:2px}
+  .fp-wrap .fp-exercise-target{font-size:9px;letter-spacing:.5px;padding:3px 7px;border-radius:6px;font-weight:500;white-space:nowrap;flex-shrink:0}
+  .fp-wrap .fp-exercise-toggle{width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--fp-text-dim);transition:transform .25s;flex-shrink:0}
+  .fp-wrap .fp-exercise.fp-open .fp-exercise-toggle{transform:rotate(180deg)}
+  .fp-wrap .fp-howto{max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .fp-wrap .fp-exercise.fp-open .fp-howto{max-height:1400px}
+  .fp-wrap .fp-howto-inner{padding:0 14px 14px 52px;font-size:13px;color:var(--fp-text-dim);line-height:1.7}
+  .fp-wrap .fp-howto-inner strong{color:var(--fp-text);font-weight:600}
+  .fp-wrap .fp-howto-steps{margin-top:6px;padding-left:16px}
+  .fp-wrap .fp-howto-steps li{margin-bottom:5px}
+  .fp-wrap .fp-howto-tip{margin-top:8px;padding:10px 12px;background:var(--fp-surface-2);border-radius:10px;font-size:12px;color:var(--fp-peach);line-height:1.5}
+  .fp-wrap .fp-howto-science{margin-top:6px;padding:10px 12px;background:rgba(212,168,67,.08);border-radius:10px;font-size:11px;color:var(--fp-gold);border:1px solid rgba(212,168,67,.12);line-height:1.5}
 
-    font-family: 'DM Sans', sans-serif;
-    background: var(--fp-bg);
-    color: var(--fp-text);
-    line-height: 1.6;
-    overflow-x: hidden;
-    box-sizing: border-box;
-    -webkit-text-size-adjust: 100%;
-    -webkit-font-smoothing: antialiased;
-    padding-bottom: env(safe-area-inset-bottom, 0);
-  }
-  .fp-wrap *, .fp-wrap *::before, .fp-wrap *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  /* === WEIGHT TRACKER === */
+  .fp-wrap .fp-weight-track{margin-top:10px;padding:12px;background:var(--fp-surface-2);border-radius:10px}
+  .fp-wrap .fp-weight-label{font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--fp-text-dim);margin-bottom:8px}
+  .fp-wrap .fp-weight-bar{display:flex;align-items:center;gap:0;margin-bottom:6px}
+  .fp-wrap .fp-weight-node{text-align:center;flex:1}
+  .fp-wrap .fp-weight-node-val{font-size:14px;font-weight:700;color:var(--fp-text)}
+  .fp-wrap .fp-weight-node-lbl{font-size:9px;color:var(--fp-text-dim);margin-top:1px}
+  .fp-wrap .fp-weight-node.fp-wn-current .fp-weight-node-val{color:var(--fp-peach)}
+  .fp-wrap .fp-weight-node.fp-wn-current .fp-weight-node-lbl{color:var(--fp-peach)}
+  .fp-wrap .fp-weight-connector{height:2px;flex:0.5;background:var(--fp-border);position:relative}
+  .fp-wrap .fp-weight-connector::after{content:'→';position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--fp-text-dim)}
+  .fp-wrap .fp-weight-note{font-size:10px;color:var(--fp-text-dim);margin-top:4px;font-style:italic}
 
-  /* === iOS / MOBILE OPTIMIZATIONS === */
-  .fp-wrap .fp-hero { position: relative; padding: 48px 20px 40px; padding-top: calc(48px + env(safe-area-inset-top, 0)); text-align: center; overflow: hidden; }
-  .fp-wrap .fp-hero::before { content: ''; position: absolute; top: -40%; left: 50%; transform: translateX(-50%); width: 500px; height: 500px; background: radial-gradient(circle, rgba(244,165,116,0.12) 0%, rgba(232,124,138,0.06) 40%, transparent 70%); pointer-events: none; }
-  .fp-wrap .fp-hero-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--fp-peach); margin-bottom: 14px; font-weight: 500; }
-  .fp-wrap .fp-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 7vw, 48px); font-weight: 700; line-height: 1.15; margin-bottom: 12px; background: linear-gradient(135deg, var(--fp-text) 0%, var(--fp-peach) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .fp-wrap .fp-hero p { color: var(--fp-text-dim); font-size: 14px; max-width: 380px; margin: 0 auto; line-height: 1.5; }
-  .fp-wrap .fp-stats-row { display: flex; justify-content: center; gap: 20px; margin-top: 28px; flex-wrap: wrap; }
-  .fp-wrap .fp-stat { text-align: center; min-width: 60px; }
-  .fp-wrap .fp-stat-value { font-size: 22px; font-weight: 700; color: var(--fp-peach); }
-  .fp-wrap .fp-stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--fp-text-dim); margin-top: 2px; }
-
-  .fp-wrap .fp-container { max-width: 720px; margin: 0 auto; padding: 0 16px; }
-
-  .fp-wrap .fp-section-header { display: flex; align-items: center; gap: 12px; margin: 40px 0 16px; }
-  .fp-wrap .fp-section-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-  .fp-wrap .fp-section-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; }
-  .fp-wrap .fp-section-subtitle { font-size: 11px; color: var(--fp-text-dim); letter-spacing: 1px; text-transform: uppercase; }
-
-  /* === TABS - scrollable on mobile === */
-  .fp-wrap .fp-tabs { display: flex; gap: 3px; background: var(--fp-surface); border-radius: 14px; padding: 4px; margin-bottom: 14px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-  .fp-wrap .fp-tabs::-webkit-scrollbar { display: none; }
-  .fp-wrap .fp-tab { flex: 0 0 auto; min-width: 56px; padding: 10px 10px; text-align: center; font-size: 12px; font-weight: 500; border-radius: 10px; cursor: pointer; color: var(--fp-text-dim); transition: all 0.25s; white-space: nowrap; border: none; background: none; font-family: inherit; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
-  .fp-wrap .fp-tab:hover { color: var(--fp-text); }
-  .fp-wrap .fp-tab.fp-active { background: var(--fp-surface-2); color: var(--fp-text); box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
-  .fp-wrap .fp-tab-day { font-size: 9px; display: block; color: var(--fp-text-dim); margin-top: 1px; }
-  .fp-wrap .fp-tab.fp-rest .fp-tab-day { color: var(--fp-mint); }
-
-  /* Day content */
-  .fp-wrap .fp-day { display: none; animation: fpFadeUp 0.3s ease; }
-  .fp-wrap .fp-day.fp-active { display: block; }
-  @keyframes fpFadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
-  .fp-wrap .fp-day-header { background: var(--fp-surface); border: 1px solid var(--fp-border); border-radius: 14px; padding: 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-  .fp-wrap .fp-day-badge { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-  .fp-wrap .fp-day-name { font-weight: 700; font-size: 16px; }
-  .fp-wrap .fp-day-focus { font-size: 12px; color: var(--fp-text-dim); }
-  .fp-wrap .fp-day-duration { margin-left: auto; font-size: 11px; color: var(--fp-mint); background: rgba(126,203,180,0.1); padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
-
-  /* === EXERCISE CARDS - 44px+ touch targets === */
-  .fp-wrap .fp-exercise { background: var(--fp-surface); border: 1px solid var(--fp-border); border-radius: 14px; margin-bottom: 8px; overflow: hidden; }
-  .fp-wrap .fp-exercise-top { display: flex; align-items: center; gap: 10px; padding: 14px 14px; cursor: pointer; min-height: 56px; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
-  .fp-wrap .fp-exercise-num { width: 28px; height: 28px; border-radius: 8px; background: var(--fp-surface-2); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--fp-text-dim); flex-shrink: 0; }
-  .fp-wrap .fp-exercise-info { flex: 1; min-width: 0; }
-  .fp-wrap .fp-exercise-name { font-weight: 600; font-size: 13px; line-height: 1.3; }
-  .fp-wrap .fp-exercise-detail { font-size: 11px; color: var(--fp-text-dim); margin-top: 2px; }
-  .fp-wrap .fp-exercise-target { font-size: 9px; letter-spacing: 0.5px; padding: 3px 7px; border-radius: 6px; font-weight: 500; white-space: nowrap; flex-shrink: 0; }
-  .fp-wrap .fp-exercise-toggle { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--fp-text-dim); transition: transform 0.25s; flex-shrink: 0; }
-  .fp-wrap .fp-exercise.fp-open .fp-exercise-toggle { transform: rotate(180deg); }
-
-  .fp-wrap .fp-howto { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
-  .fp-wrap .fp-exercise.fp-open .fp-howto { max-height: 1200px; }
-  .fp-wrap .fp-howto-inner { padding: 0 14px 14px 52px; font-size: 13px; color: var(--fp-text-dim); line-height: 1.7; }
-  .fp-wrap .fp-howto-inner strong { color: var(--fp-text); font-weight: 600; }
-  .fp-wrap .fp-howto-steps { margin-top: 6px; padding-left: 16px; }
-  .fp-wrap .fp-howto-steps li { margin-bottom: 5px; }
-  .fp-wrap .fp-howto-tip { margin-top: 8px; padding: 10px 12px; background: var(--fp-surface-2); border-radius: 10px; font-size: 12px; color: var(--fp-peach); line-height: 1.5; }
-  .fp-wrap .fp-howto-science { margin-top: 6px; padding: 10px 12px; background: rgba(212,168,67,0.08); border-radius: 10px; font-size: 11px; color: var(--fp-gold); border: 1px solid rgba(212,168,67,0.12); line-height: 1.5; }
-
-  .fp-wrap .fp-tg-glutes { background: rgba(232,124,138,0.12); color: var(--fp-rose); }
-  .fp-wrap .fp-tg-arms { background: rgba(168,156,207,0.12); color: var(--fp-lavender); }
-  .fp-wrap .fp-tg-core { background: rgba(126,203,180,0.12); color: var(--fp-mint); }
-  .fp-wrap .fp-tg-compound { background: rgba(244,165,116,0.12); color: var(--fp-peach); }
-  .fp-wrap .fp-tg-cardio { background: rgba(116,180,212,0.12); color: var(--fp-sky); }
-  .fp-wrap .fp-tg-recovery { background: rgba(126,203,180,0.10); color: var(--fp-mint); }
-  .fp-wrap .fp-tg-mobility { background: rgba(212,168,67,0.10); color: var(--fp-gold); }
-  .fp-wrap .fp-tg-nutrition { background: rgba(244,165,116,0.10); color: var(--fp-peach); }
-
-  .fp-wrap .fp-warmup-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--fp-text-dim); margin: 14px 0 8px; padding-left: 4px; }
-
-  /* Nutrition grid */
-  .fp-wrap .fp-card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .fp-wrap .fp-info-card { background: var(--fp-surface); border: 1px solid var(--fp-border); border-radius: 14px; padding: 16px; }
-  .fp-wrap .fp-info-card-title { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--fp-text-dim); margin-bottom: 6px; }
-  .fp-wrap .fp-info-card-value { font-size: 20px; font-weight: 700; }
-  .fp-wrap .fp-info-card-note { font-size: 11px; color: var(--fp-text-dim); margin-top: 4px; line-height: 1.4; }
-
-  /* Tips */
-  .fp-wrap .fp-tip-list { list-style: none; }
-  .fp-wrap .fp-tip-list li { padding: 12px 0; border-bottom: 1px solid var(--fp-border); font-size: 13px; display: flex; gap: 10px; align-items: flex-start; line-height: 1.5; }
-  .fp-wrap .fp-tip-list li:last-child { border-bottom: none; }
-  .fp-wrap .fp-tip-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-
-  /* Progression */
-  .fp-wrap .fp-prog-track { display: flex; align-items: center; gap: 0; margin: 12px 0 24px; }
-  .fp-wrap .fp-prog-phase { flex: 1; text-align: center; }
-  .fp-wrap .fp-prog-dot { width: 12px; height: 12px; border-radius: 50%; margin: 0 auto 6px; border: 2px solid var(--fp-border); background: var(--fp-surface); }
-  .fp-wrap .fp-prog-phase.fp-current .fp-prog-dot { border-color: var(--fp-peach); background: var(--fp-peach); box-shadow: 0 0 10px rgba(244,165,116,0.4); }
-  .fp-wrap .fp-prog-line { height: 2px; background: var(--fp-border); flex: 1; }
-  .fp-wrap .fp-prog-label { font-size: 10px; color: var(--fp-text-dim); }
-  .fp-wrap .fp-prog-label strong { display: block; color: var(--fp-text); font-size: 11px; }
-  .fp-wrap .fp-prog-phase.fp-current .fp-prog-label, .fp-wrap .fp-prog-phase.fp-current .fp-prog-label strong { color: var(--fp-peach); }
-
-  .fp-wrap .fp-note-card { background: var(--fp-surface); border: 1px solid var(--fp-border); border-radius: 14px; padding: 16px; margin-top: 14px; font-size: 12px; color: var(--fp-text-dim); line-height: 1.7; }
-  .fp-wrap .fp-note-card strong { color: var(--fp-text); }
-  .fp-wrap .fp-footer { text-align: center; padding: 40px 16px 24px; padding-bottom: calc(24px + env(safe-area-inset-bottom, 0)); font-size: 10px; color: var(--fp-text-dim); letter-spacing: 1px; }
-  .fp-wrap .fp-how-hint { text-align: center; font-size: 11px; color: var(--fp-text-dim); margin-bottom: 14px; opacity: 0.7; }
-
-  /* Weekend special styles */
-  .fp-wrap .fp-rest-block { background: var(--fp-surface); border: 1px solid var(--fp-border); border-radius: 14px; padding: 16px; margin-bottom: 10px; }
-  .fp-wrap .fp-rest-block-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
-  .fp-wrap .fp-rest-block-sub { font-size: 11px; color: var(--fp-text-dim); margin-bottom: 10px; }
-  .fp-wrap .fp-rest-item { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--fp-border); font-size: 12px; color: var(--fp-text-dim); line-height: 1.6; }
-  .fp-wrap .fp-rest-item:last-child { border-bottom: none; }
-  .fp-wrap .fp-rest-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-  .fp-wrap .fp-rest-item strong { color: var(--fp-text); }
-  .fp-wrap .fp-checklist { list-style: none; padding: 0; }
-  .fp-wrap .fp-checklist li { padding: 6px 0; font-size: 12px; color: var(--fp-text-dim); display: flex; gap: 8px; align-items: flex-start; }
-  .fp-wrap .fp-checklist li::before { content: '○'; color: var(--fp-mint); flex-shrink: 0; font-size: 14px; }
-  .fp-wrap .fp-checklist li strong { color: var(--fp-text); }
-
-  /* Mobile responsive */
-  @media (max-width: 500px) {
-    .fp-wrap .fp-card-grid { grid-template-columns: 1fr; }
-    .fp-wrap .fp-howto-inner { padding-left: 14px; }
-    .fp-wrap .fp-tab { min-width: 48px; padding: 8px 6px; font-size: 11px; }
-    .fp-wrap .fp-day-header { flex-wrap: nowrap; }
-    .fp-wrap .fp-day-duration { font-size: 10px; padding: 3px 8px; }
-  }
+  .fp-wrap .fp-tg-glutes{background:rgba(232,124,138,.12);color:var(--fp-rose)}
+  .fp-wrap .fp-tg-arms{background:rgba(168,156,207,.12);color:var(--fp-lavender)}
+  .fp-wrap .fp-tg-core{background:rgba(126,203,180,.12);color:var(--fp-mint)}
+  .fp-wrap .fp-tg-compound{background:rgba(244,165,116,.12);color:var(--fp-peach)}
+  .fp-wrap .fp-tg-cardio{background:rgba(116,180,212,.12);color:var(--fp-sky)}
+  .fp-wrap .fp-tg-recovery{background:rgba(126,203,180,.10);color:var(--fp-mint)}
+  .fp-wrap .fp-tg-mobility{background:rgba(212,168,67,.10);color:var(--fp-gold)}
+  .fp-wrap .fp-warmup-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--fp-text-dim);margin:14px 0 8px;padding-left:4px}
+  .fp-wrap .fp-card-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .fp-wrap .fp-info-card{background:var(--fp-surface);border:1px solid var(--fp-border);border-radius:14px;padding:16px}
+  .fp-wrap .fp-info-card-title{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--fp-text-dim);margin-bottom:6px}
+  .fp-wrap .fp-info-card-value{font-size:20px;font-weight:700}
+  .fp-wrap .fp-info-card-note{font-size:11px;color:var(--fp-text-dim);margin-top:4px;line-height:1.4}
+  .fp-wrap .fp-tip-list{list-style:none}
+  .fp-wrap .fp-tip-list li{padding:12px 0;border-bottom:1px solid var(--fp-border);font-size:13px;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+  .fp-wrap .fp-tip-list li:last-child{border-bottom:none}
+  .fp-wrap .fp-tip-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+  .fp-wrap .fp-prog-track{display:flex;align-items:center;gap:0;margin:12px 0 24px}
+  .fp-wrap .fp-prog-phase{flex:1;text-align:center}
+  .fp-wrap .fp-prog-dot{width:12px;height:12px;border-radius:50%;margin:0 auto 6px;border:2px solid var(--fp-border);background:var(--fp-surface)}
+  .fp-wrap .fp-prog-phase.fp-current .fp-prog-dot{border-color:var(--fp-peach);background:var(--fp-peach);box-shadow:0 0 10px rgba(244,165,116,.4)}
+  .fp-wrap .fp-prog-line{height:2px;background:var(--fp-border);flex:1}
+  .fp-wrap .fp-prog-label{font-size:10px;color:var(--fp-text-dim)}
+  .fp-wrap .fp-prog-label strong{display:block;color:var(--fp-text);font-size:11px}
+  .fp-wrap .fp-prog-phase.fp-current .fp-prog-label,.fp-wrap .fp-prog-phase.fp-current .fp-prog-label strong{color:var(--fp-peach)}
+  .fp-wrap .fp-note-card{background:var(--fp-surface);border:1px solid var(--fp-border);border-radius:14px;padding:16px;margin-top:14px;font-size:12px;color:var(--fp-text-dim);line-height:1.7}
+  .fp-wrap .fp-note-card strong{color:var(--fp-text)}
+  .fp-wrap .fp-footer{text-align:center;padding:40px 16px 24px;padding-bottom:calc(24px + env(safe-area-inset-bottom,0));font-size:10px;color:var(--fp-text-dim);letter-spacing:1px}
+  .fp-wrap .fp-how-hint{text-align:center;font-size:11px;color:var(--fp-text-dim);margin-bottom:14px;opacity:.7}
+  .fp-wrap .fp-rest-block{background:var(--fp-surface);border:1px solid var(--fp-border);border-radius:14px;padding:16px;margin-bottom:10px}
+  .fp-wrap .fp-rest-block-title{font-weight:700;font-size:14px;margin-bottom:4px}
+  .fp-wrap .fp-rest-block-sub{font-size:11px;color:var(--fp-text-dim);margin-bottom:10px}
+  .fp-wrap .fp-rest-item{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--fp-border);font-size:12px;color:var(--fp-text-dim);line-height:1.6}
+  .fp-wrap .fp-rest-item:last-child{border-bottom:none}
+  .fp-wrap .fp-rest-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+  .fp-wrap .fp-rest-item strong{color:var(--fp-text)}
+  .fp-wrap .fp-checklist{list-style:none;padding:0}
+  .fp-wrap .fp-checklist li{padding:6px 0;font-size:12px;color:var(--fp-text-dim);display:flex;gap:8px;align-items:flex-start}
+  .fp-wrap .fp-checklist li::before{content:'○';color:var(--fp-mint);flex-shrink:0;font-size:14px}
+  .fp-wrap .fp-checklist li strong{color:var(--fp-text)}
+  @media(max-width:500px){.fp-wrap .fp-card-grid{grid-template-columns:1fr}.fp-wrap .fp-howto-inner{padding-left:14px}.fp-wrap .fp-tab{min-width:44px;padding:8px 5px;font-size:11px}}
 </style>
 
 <div class="fp-wrap">
   <div class="fp-hero">
-    <div class="fp-hero-label">Evidence-Based Program</div>
+    <div class="fp-hero-label">Weeks 5–8 · Evidence-Based</div>
     <h1>Build &amp; Sculpt</h1>
-    <p>7-day program backed by EMG research &amp; systematic reviews — glute growth, arm definition, core tightening &amp; strategic recovery</p>
+    <p>Month 2 progression — same exercises, more weight, more intensity. Track your gains below.</p>
     <div class="fp-stats-row">
-      <div class="fp-stat"><div class="fp-stat-value">128.6</div><div class="fp-stat-label">Current lbs</div></div>
+      <div class="fp-stat"><div class="fp-stat-value">128.6</div><div class="fp-stat-label">Starting lbs</div></div>
       <div class="fp-stat"><div class="fp-stat-value">16.5%</div><div class="fp-stat-label">Body Fat</div></div>
       <div class="fp-stat"><div class="fp-stat-value">100.8</div><div class="fp-stat-label">Muscle lbs</div></div>
-      <div class="fp-stat"><div class="fp-stat-value">25</div><div class="fp-stat-label">Metabolic Age</div></div>
+      <div class="fp-stat"><div class="fp-stat-value">Month 2</div><div class="fp-stat-label">Phase</div></div>
     </div>
   </div>
 
   <div class="fp-container">
     <div class="fp-section-header">
       <div class="fp-section-icon" style="background:var(--fp-glow-peach);">🗓</div>
-      <div><div class="fp-section-title">Weekly Schedule</div><div class="fp-section-subtitle">Mon–Fri training · Sat–Sun active recovery</div></div>
+      <div><div class="fp-section-title">Weekly Schedule</div><div class="fp-section-subtitle">Mon–Fri · Sat–Sun recovery</div></div>
     </div>
-
     <div class="fp-tabs" id="fpDayTabs">
       <button class="fp-tab fp-active" data-day="1">Mon<span class="fp-tab-day">Glutes A</span></button>
       <button class="fp-tab" data-day="2">Tue<span class="fp-tab-day">Arms</span></button>
@@ -178,227 +133,158 @@
       <button class="fp-tab fp-rest" data-day="6">Sat<span class="fp-tab-day">Recovery</span></button>
       <button class="fp-tab fp-rest" data-day="7">Sun<span class="fp-tab-day">Prep</span></button>
     </div>
+    <div class="fp-how-hint">Tap exercises for instructions + your weight progression targets ↓</div>
 
-    <div class="fp-how-hint">Tap any exercise for step-by-step instructions + science ↓</div>
-
-    <!-- ===== DAY 1: GLUTES A ===== -->
+    <!-- ===== MONDAY: GLUTES A ===== -->
     <div class="fp-day fp-active" data-day="1">
-      <div class="fp-day-header"><div class="fp-day-badge" style="background:var(--fp-glow-rose);">🍑</div><div><div class="fp-day-name">Glute Focus A</div><div class="fp-day-focus">Hip-hinge dominant · heavy compounds</div></div><div class="fp-day-duration">~50 min</div></div>
+      <div class="fp-day-header"><div class="fp-day-badge" style="background:var(--fp-glow-rose);">🍑</div><div><div class="fp-day-name">Glute Focus A</div><div class="fp-day-focus">Hip-hinge dominant · adding 4th sets on compounds</div></div><div class="fp-day-duration">~55 min</div></div>
       <div class="fp-warmup-label">Warm-Up (5 min)</div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">W</div><div class="fp-exercise-info"><div class="fp-exercise-name">Banded Glute Bridges + Clamshells</div><div class="fp-exercise-detail">2 × 15 each · light band · activation primer</div></div><span class="fp-exercise-target fp-tg-glutes">Activation</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><strong>Glute Bridges:</strong><ol class="fp-howto-steps"><li>Lie on back, knees bent, feet flat hip-width. Band just above knees.</li><li>Press feet into floor, drive hips up, push knees out against band.</li><li>Squeeze glutes 1 sec at top, slowly lower.</li></ol><strong>Clamshells:</strong><ol class="fp-howto-steps"><li>Side-lying, knees bent 90°, feet stacked, band above knees.</li><li>Open top knee toward ceiling keeping feet together.</li><li>Hold 1 sec, close slowly. All reps one side, then switch.</li></ol><div class="fp-howto-tip">💡 Light resistance only — focus on feeling your glutes fire before heavy work.</div><div class="fp-howto-science">📊 EMG research confirms activation exercises before heavy lifts improve mind-muscle connection and increase glute recruitment in subsequent exercises.</div></div></div></div>
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">W</div><div class="fp-exercise-info"><div class="fp-exercise-name">Banded Glute Bridges + Clamshells</div><div class="fp-exercise-detail">2 × 15 each · same as month 1</div></div><span class="fp-exercise-target fp-tg-glutes">Activation</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Glute Bridges: on back, band above knees, drive hips up, squeeze 1 sec.</li><li>Clamshells: side-lying, open top knee, hold 1 sec, close slowly.</li></ol><div class="fp-howto-tip">💡 Same weight as month 1. This is still just an activation primer.</div></div></div></div>
+
       <div class="fp-warmup-label">Working Sets</div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">1</div><div class="fp-exercise-info"><div class="fp-exercise-name">Barbell Hip Thrust</div><div class="fp-exercise-detail">3 × 10–12 · 2 sec pause at top · squeeze hard</div></div><span class="fp-exercise-target fp-tg-glutes">Glutes</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Upper back against bench. Roll barbell over hips (use bar pad).</li><li>Feet flat, shoulder-width, knees ~90° at top.</li><li>Drive through heels, squeeze glutes until torso parallel.</li><li>Hold 2 sec — squeeze as hard as you can.</li><li>Lower slowly (3 sec). Don't rest on floor between reps.</li></ol><div class="fp-howto-tip">💡 Start with just the bar or bodyweight. Chin tucked — don't arch neck.</div><div class="fp-howto-science">📊 2025 Frontiers in Physiology meta-analysis (12 studies): "When emphasizing GMax hypertrophy, single exercises such as the barbell hip thrust should be prioritized." #1 glute builder.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">2</div><div class="fp-exercise-info"><div class="fp-exercise-name">Romanian Deadlift (Dumbbell)</div><div class="fp-exercise-detail">3 × 10–12 · slow lowering · feel hamstring stretch</div></div><span class="fp-exercise-target fp-tg-glutes">Glutes + Hams</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Stand hip-width, dumbbells in front, palms facing you.</li><li>Soft knee bend — push hips straight back.</li><li>Lower along shins until deep hamstring stretch (mid-shin).</li><li>Back flat, chest proud, dumbbells close to legs.</li><li>Drive hips forward, squeeze glutes at top.</li></ol><div class="fp-howto-tip">💡 Don't round back. Shoulder blades pinched. Start 10–15 lb dumbbells.</div><div class="fp-howto-science">📊 Controlled eccentric (lowering) maximizes hamstring + glute co-activation and stimulates hypertrophy through stretched-position loading.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">3</div><div class="fp-exercise-info"><div class="fp-exercise-name">Bulgarian Split Squat</div><div class="fp-exercise-detail">3 × 10 each · lean forward 15° for glutes</div></div><span class="fp-exercise-target fp-tg-glutes">Glutes</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>~2 ft in front of bench. One foot behind, laces down.</li><li>Dumbbells at sides. Lean torso forward ~15°.</li><li>Lower until front thigh roughly parallel.</li><li>Drive through front heel. All reps one leg, switch.</li></ol><div class="fp-howto-tip">💡 Balance shaky? Start bodyweight. Knee tracks over toes, don't cave in.</div><div class="fp-howto-science">📊 PMC: single-limb squats elicit 82% MVIC in glute max + 82% in glute med — one of the highest dual-activation exercises measured.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">4</div><div class="fp-exercise-info"><div class="fp-exercise-name">Cable Kickbacks</div><div class="fp-exercise-detail">3 × 12 each · squeeze 1 sec at top</div></div><span class="fp-exercise-target fp-tg-glutes">Glutes</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Ankle strap on low cable. Face machine, hold frame.</li><li>Core tight, kick strapped leg straight back.</li><li>Squeeze glute 1 sec. Don't arch lower back.</li><li>Slowly return. All reps, switch legs.</li></ol><div class="fp-howto-tip">💡 Very light — isolation move. Lower back feeling it? Too heavy or arching.</div><div class="fp-howto-science">📊 ACE: quadruped hip extensions (same pattern) generated significantly more gluteus medius activation than squats.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">5</div><div class="fp-exercise-info"><div class="fp-exercise-name">Abductor Machine (Leaning Forward)</div><div class="fp-exercise-detail">3 × 15 · lean 30° for upper glute</div></div><span class="fp-exercise-target fp-tg-glutes">Glute Med</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Sit in machine, lean torso forward ~30°.</li><li>Push knees apart, hold 1 sec, slowly close.</li></ol><div class="fp-howto-tip">💡 Forward lean changes everything. Lower weight vs. sitting upright.</div><div class="fp-howto-science">📊 Hip abduction with external rotation generates 79–113% MVIC in glute max. Forward lean shifts to gluteus medius for that "shelf" look.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">6</div><div class="fp-exercise-info"><div class="fp-exercise-name">Dead Bug</div><div class="fp-exercise-detail">2 × 10 each side · exhale fully</div></div><span class="fp-exercise-target fp-tg-core">Core</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>On back, arms up, knees 90°. Press low back into floor.</li><li>Extend right arm + left leg out, hovering above floor.</li><li>Exhale fully. Return, repeat opposite side.</li></ol><div class="fp-howto-tip">💡 Low back lifts? Shorten range.</div><div class="fp-howto-science">📊 2024 study: dead bugs activate rectus abdominis, both obliques, transverse abdominis, multifidus, erector spinae, AND pelvic floor — one of the most complete core exercises.</div></div></div></div>
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">1</div><div class="fp-exercise-info"><div class="fp-exercise-name">Barbell Hip Thrust (Booty Builder)</div><div class="fp-exercise-detail">Wk 5–6: 3 × 10–12 · Wk 7–8: <strong>4 × 10–12</strong></div></div><span class="fp-exercise-target fp-tg-glutes">Glutes</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Same form: upper back on pad, drive through heels, 2 sec squeeze at top.</li><li>3 sec lowering. Chin tucked.</li></ol><div class="fp-weight-track"><div class="fp-weight-label">Your Progression</div><div class="fp-weight-bar"><div class="fp-weight-node fp-wn-current"><div class="fp-weight-node-val">50 lbs</div><div class="fp-weight-node-lbl">Month 1</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">60 lbs</div><div class="fp-weight-node-lbl">Wk 5–6</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">70 lbs</div><div class="fp-weight-node-lbl">Wk 7–8</div></div></div><div class="fp-weight-note">+ machine base weight · Add 4th set at Wk 7–8</div></div><div class="fp-howto-science">📊 2025 meta-analysis: hip thrust is the #1 prioritized exercise for glute hypertrophy.</div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">2</div><div class="fp-exercise-info"><div class="fp-exercise-name">Romanian Deadlift (Dumbbell)</div><div class="fp-exercise-detail">Wk 5–6: 3 × 10–12 · Wk 7–8: <strong>4 × 10–12</strong></div></div><span class="fp-exercise-target fp-tg-glutes">Glutes + Hams</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Hips back, flat back, dumbbells along shins. Drive hips forward to stand.</li></ol><div class="fp-weight-track"><div class="fp-weight-label">Your Progression</div><div class="fp-weight-bar"><div class="fp-weight-node fp-wn-current"><div class="fp-weight-node-val">20 lbs</div><div class="fp-weight-node-lbl">Month 1</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">25 lbs</div><div class="fp-weight-node-lbl">Wk 5–6</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">25 lbs</div><div class="fp-weight-node-lbl">Wk 7–8</div></div></div><div class="fp-weight-note">Each hand · Add 4th set at Wk 7–8 instead of more weight</div></div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">3</div><div class="fp-exercise-info"><div class="fp-exercise-name">Bulgarian Split Squat</div><div class="fp-exercise-detail">3 × 10 each · lean forward for glutes</div></div><span class="fp-exercise-target fp-tg-glutes">Glutes</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Rear foot on bench. Lean 15°. Lower until front thigh parallel. Drive through heel.</li></ol><div class="fp-weight-track"><div class="fp-weight-label">Your Progression</div><div class="fp-weight-bar"><div class="fp-weight-node fp-wn-current"><div class="fp-weight-node-val">10 lbs</div><div class="fp-weight-node-lbl">Month 1</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">12.5 lbs</div><div class="fp-weight-node-lbl">Wk 5–6</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">15 lbs</div><div class="fp-weight-node-lbl">Wk 7–8</div></div></div><div class="fp-weight-note">Each hand · No gym has 12.5? Use 10 lbs + add 2 reps per set</div></div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">4</div><div class="fp-exercise-info"><div class="fp-exercise-name">Cable Kickbacks</div><div class="fp-exercise-detail">3 × 12 each · 2 sec squeeze at top</div></div><span class="fp-exercise-target fp-tg-glutes">Glutes</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Ankle strap, kick back, squeeze glute. Don't arch back.</li></ol><div class="fp-weight-track"><div class="fp-weight-label">Your Progression</div><div class="fp-weight-bar"><div class="fp-weight-node fp-wn-current"><div class="fp-weight-node-val">25 lbs</div><div class="fp-weight-node-lbl">Month 1</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">30 lbs</div><div class="fp-weight-node-lbl">Wk 5–6</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">30 lbs</div><div class="fp-weight-node-lbl">Wk 7–8</div></div></div><div class="fp-weight-note">Wk 7–8: same weight but 2 sec pause at top each rep</div></div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">5</div><div class="fp-exercise-info"><div class="fp-exercise-name">Abductor Machine (Leaning Forward)</div><div class="fp-exercise-detail">3 × 15 · lean 30°</div></div><span class="fp-exercise-target fp-tg-glutes">Glute Med</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Lean forward ~30°. Push knees apart. Hold 1 sec. Slowly close.</li></ol><div class="fp-weight-track"><div class="fp-weight-label">Your Progression</div><div class="fp-weight-bar"><div class="fp-weight-node fp-wn-current"><div class="fp-weight-node-val">50 lbs</div><div class="fp-weight-node-lbl">Month 1</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">60 lbs</div><div class="fp-weight-node-lbl">Wk 5–6</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">65 lbs</div><div class="fp-weight-node-lbl">Wk 7–8</div></div></div><div class="fp-weight-note">+ machine base weight</div></div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">6</div><div class="fp-exercise-info"><div class="fp-exercise-name">Dead Bug</div><div class="fp-exercise-detail">2 × 12 each side (was 10 — push to 12)</div></div><span class="fp-exercise-target fp-tg-core">Core</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Press low back down. Extend opposite arm + leg. Exhale fully. 12 reps now.</li></ol><div class="fp-howto-tip">💡 Went from 10 → 12 reps. If that's easy, hold a light plate (5 lbs) in the extended hand.</div></div></div></div>
     </div>
 
-    <!-- ===== DAY 2: ARMS ===== -->
+    <!-- ===== TUESDAY: ARMS ===== -->
     <div class="fp-day" data-day="2">
-      <div class="fp-day-header"><div class="fp-day-badge" style="background:rgba(168,156,207,0.1);">💪</div><div><div class="fp-day-name">Arms &amp; Shoulders</div><div class="fp-day-focus">All 3 tricep heads + bicep peak &amp; width</div></div><div class="fp-day-duration">~45 min</div></div>
-      <div class="fp-warmup-label">Warm-Up (5 min)</div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">W</div><div class="fp-exercise-info"><div class="fp-exercise-name">Band Pull-Aparts + Arm Circles</div><div class="fp-exercise-detail">2 × 15 each · shoulder mobility</div></div><span class="fp-exercise-target fp-tg-arms">Activation</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Light band at shoulder height, arms straight. Pull apart until band touches chest.</li><li>Arm circles: arms out, small circles × 15 forward, × 15 reverse.</li></ol><div class="fp-howto-tip">💡 Never skip — prevents pressing injuries.</div></div></div></div>
+      <div class="fp-day-header"><div class="fp-day-badge" style="background:rgba(168,156,207,.1);">💪</div><div><div class="fp-day-name">Arms &amp; Shoulders</div><div class="fp-day-focus">Same weight, more reps + 4-sec negatives at Wk 7</div></div><div class="fp-day-duration">~50 min</div></div>
+      <div class="fp-warmup-label">Warm-Up</div>
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">W</div><div class="fp-exercise-info"><div class="fp-exercise-name">Band Pull-Aparts + Arm Circles</div><div class="fp-exercise-detail">2 × 15 each</div></div><span class="fp-exercise-target fp-tg-arms">Activation</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner">Same as month 1. Light band pull-aparts + arm circles.</div></div></div>
       <div class="fp-warmup-label">Working Sets</div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">1</div><div class="fp-exercise-info"><div class="fp-exercise-name">Dumbbell Shoulder Press</div><div class="fp-exercise-detail">3 × 10–12 · seated · 3-sec lowering</div></div><span class="fp-exercise-target fp-tg-arms">Shoulders</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Seated, back support. Dumbbells at shoulder height, palms forward.</li><li>Press up, arms almost straight. Lower over 3 sec.</li></ol><div class="fp-howto-tip">💡 Start 8–10 lbs. Core braced, back flat.</div><div class="fp-howto-science">📊 EMG: overhead press activates anterior deltoids 79%, lateral deltoids 66%, triceps 61% — outperforms isolation raises.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">2</div><div class="fp-exercise-info"><div class="fp-exercise-name">Concentration Curl</div><div class="fp-exercise-detail">3 × 12 each · elbow braced on inner thigh</div></div><span class="fp-exercise-target fp-tg-arms">Biceps</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Sit on bench, lean forward. Brace upper arm against inner thigh.</li><li>Curl toward shoulder. Squeeze 2 sec at top.</li><li>Lower over 3 sec. All reps one arm, switch.</li></ol><div class="fp-howto-tip">💡 Thigh brace eliminates cheating — bicep does 100% of work. 8–10 lbs.</div><div class="fp-howto-science">📊 ACE EMG study: concentration curls produced the HIGHEST biceps activation of ALL exercises tested — higher than barbell, EZ-bar, and preacher curls.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">3</div><div class="fp-exercise-info"><div class="fp-exercise-name">Overhead Tricep Extension (Cable)</div><div class="fp-exercise-detail">3 × 12 · rope · deep stretch at bottom</div></div><span class="fp-exercise-target fp-tg-arms">Triceps Long</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Rope on low pulley. Face away, step forward.</li><li>Hands behind head, elbows forward. Extend arms overhead.</li><li>Let weight slowly pull hands back — feel deep tricep stretch.</li></ol><div class="fp-howto-tip">💡 Stretch at bottom drives growth. Elbows forward, not flared.</div><div class="fp-howto-science">📊 German EMG study: overhead extensions best activate the triceps LONG HEAD — the largest head that gives full, rounded arm look.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">4</div><div class="fp-exercise-info"><div class="fp-exercise-name">Lateral Raises</div><div class="fp-exercise-detail">3 × 15 · light · lead with elbows</div></div><span class="fp-exercise-target fp-tg-arms">Shoulders</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Light dumbbells at sides, slight elbow bend.</li><li>Raise to shoulder height. Elbows higher than wrists.</li><li>Lower 3 sec. 5–8 lbs is plenty.</li></ol><div class="fp-howto-tip">💡 Shrugging shoulders? Too heavy. These should be humblingly light.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">5</div><div class="fp-exercise-info"><div class="fp-exercise-name">Hammer Curls</div><div class="fp-exercise-detail">3 × 12 · thumbs up · arm width builder</div></div><span class="fp-exercise-target fp-tg-arms">Brachialis</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Palms facing body (thumbs up). Curl both up. Squeeze, lower 3 sec.</li></ol><div class="fp-howto-tip">💡 Targets brachialis — adds WIDTH from front view.</div><div class="fp-howto-science">📊 Neutral grip shifts work to brachialis and brachioradialis. Pairing with concentration curls covers the full upper arm.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">6</div><div class="fp-exercise-info"><div class="fp-exercise-name">Triangle Push-Ups</div><div class="fp-exercise-detail">3 × 8–12 · diamond hand position</div></div><span class="fp-exercise-target fp-tg-arms">Triceps All</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Push-up position. Hands together, thumbs + index fingers form diamond.</li><li>Lower chest toward hands, elbows close to body.</li><li>Push up. Too hard? Do from knees — same hand position.</li></ol><div class="fp-howto-tip">💡 Start on knees. Focus on slow 3-sec descent.</div><div class="fp-howto-science">📊 ACE/Univ. of Wisconsin EMG: triangle push-ups produced HIGHEST triceps activation of ALL exercises — beating dips, kickbacks, pushdowns, and close-grip bench.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">7</div><div class="fp-exercise-info"><div class="fp-exercise-name">Plank Hold</div><div class="fp-exercise-detail">2 × 30 sec · squeeze everything</div></div><span class="fp-exercise-target fp-tg-core">Core</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Forearms on floor, elbows under shoulders. Straight line head to heels.</li><li>Squeeze glutes, brace core, breathe. 30 sec.</li></ol><div class="fp-howto-tip">💡 Too hard? 15–20 sec. Too easy? Probably sagging — check a mirror.</div></div></div></div>
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">1</div><div class="fp-exercise-info"><div class="fp-exercise-name">Dumbbell Shoulder Press</div><div class="fp-exercise-detail">3 × 12 · seated</div></div><span class="fp-exercise-target fp-tg-arms">Shoulders</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-weight-track"><div class="fp-weight-label">Your Progression</div><div class="fp-weight-bar"><div class="fp-weight-node fp-wn-current"><div class="fp-weight-node-val">10–15 lbs</div><div class="fp-weight-node-lbl">Month 1</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">15 reps</div><div class="fp-weight-node-lbl">Wk 5–6</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">4-sec neg</div><div class="fp-weight-node-lbl">Wk 7–8</div></div></div><div class="fp-weight-note">Same weight · Push to 15 reps first, then add 4-sec lowering</div></div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">2</div><div class="fp-exercise-info"><div class="fp-exercise-name">Concentration Curl</div><div class="fp-exercise-detail">3 × 12 each · #1 EMG for biceps</div></div><span class="fp-exercise-target fp-tg-arms">Biceps</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-weight-track"><div class="fp-weight-label">Your Progression</div><div class="fp-weight-bar"><div class="fp-weight-node fp-wn-current"><div class="fp-weight-node-val">10–15 lbs</div><div class="fp-weight-node-lbl">Month 1</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">15 reps</div><div class="fp-weight-node-lbl">Wk 5–6</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">4-sec neg</div><div class="fp-weight-node-lbl">Wk 7–8</div></div></div><div class="fp-weight-note">Toning = time under tension. Slower negatives &gt; heavier weight.</div></div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">3</div><div class="fp-exercise-info"><div class="fp-exercise-name">Overhead Tricep Extension</div><div class="fp-exercise-detail">3 × 12 · cable rope</div></div><span class="fp-exercise-target fp-tg-arms">Triceps Long</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-weight-track"><div class="fp-weight-label">Your Progression</div><div class="fp-weight-bar"><div class="fp-weight-node fp-wn-current"><div class="fp-weight-node-val">10–15 lbs</div><div class="fp-weight-node-lbl">Month 1</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">15 reps</div><div class="fp-weight-node-lbl">Wk 5–6</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">4-sec neg</div><div class="fp-weight-node-lbl">Wk 7–8</div></div></div></div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">4</div><div class="fp-exercise-info"><div class="fp-exercise-name">Lateral Raise Machine</div><div class="fp-exercise-detail">3 × 15</div></div><span class="fp-exercise-target fp-tg-arms">Shoulders</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-weight-track"><div class="fp-weight-label">Your Progression</div><div class="fp-weight-bar"><div class="fp-weight-node fp-wn-current"><div class="fp-weight-node-val">75 lbs</div><div class="fp-weight-node-lbl">Month 1</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">80 lbs</div><div class="fp-weight-node-lbl">Wk 5–6</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">85 lbs</div><div class="fp-weight-node-lbl">Wk 7–8</div></div></div></div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">5</div><div class="fp-exercise-info"><div class="fp-exercise-name">Hammer Curls</div><div class="fp-exercise-detail">3 × 12 · thumbs up</div></div><span class="fp-exercise-target fp-tg-arms">Brachialis</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-weight-track"><div class="fp-weight-label">Your Progression</div><div class="fp-weight-bar"><div class="fp-weight-node fp-wn-current"><div class="fp-weight-node-val">10–15 lbs</div><div class="fp-weight-node-lbl">Month 1</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">15 reps</div><div class="fp-weight-node-lbl">Wk 5–6</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">4-sec neg</div><div class="fp-weight-node-lbl">Wk 7–8</div></div></div></div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">6</div><div class="fp-exercise-info"><div class="fp-exercise-name">Triangle Push-Ups</div><div class="fp-exercise-detail">Wk 5–6: 3×(+2 reps) · Wk 7–8: <strong>4 sets</strong></div></div><span class="fp-exercise-target fp-tg-arms">Triceps All</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-howto-tip">💡 Add 2 reps per set weeks 5–6. Add a 4th set weeks 7–8. Still on knees? Try 1 set from toes.</div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">7</div><div class="fp-exercise-info"><div class="fp-exercise-name">Plank Hold</div><div class="fp-exercise-detail">2 × 40 sec (was 30 sec)</div></div><span class="fp-exercise-target fp-tg-core">Core</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-howto-tip">💡 Push from 30 → 40 sec. If easy, add shoulder taps during the plank.</div></div></div></div>
     </div>
 
-    <!-- ===== DAY 3: CORE ===== -->
+    <!-- ===== WEDNESDAY: CORE ===== -->
     <div class="fp-day" data-day="3">
-      <div class="fp-day-header"><div class="fp-day-badge" style="background:var(--fp-glow-mint);">🔥</div><div><div class="fp-day-name">Core &amp; Conditioning</div><div class="fp-day-focus">Deep core + rectus + obliques + cardio</div></div><div class="fp-day-duration">~40 min</div></div>
+      <div class="fp-day-header"><div class="fp-day-badge" style="background:var(--fp-glow-mint);">🔥</div><div><div class="fp-day-name">Core &amp; Conditioning</div><div class="fp-day-focus">Heavier cables + more reps + longer holds</div></div><div class="fp-day-duration">~45 min</div></div>
       <div class="fp-warmup-label">Core Circuit (3 rounds)</div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">1</div><div class="fp-exercise-info"><div class="fp-exercise-name">Pallof Press</div><div class="fp-exercise-detail">12 each side · cable · anti-rotation</div></div><span class="fp-exercise-target fp-tg-core">Deep Core</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Cable chest height, D-handle. Stand sideways, handle at chest.</li><li>Step away. Press straight out — resist the rotation.</li><li>Hold 2 sec extended, return. That's 1 rep.</li></ol><div class="fp-howto-tip">💡 Best flat-stomach exercise. Trains transverse abdominis — your natural corset.</div><div class="fp-howto-science">📊 2025 NSCA: Pallof press is a top anti-rotational exercise, training the transverse abdominis and internal obliques that create the "pulled-in" look.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">2</div><div class="fp-exercise-info"><div class="fp-exercise-name">Bicycle Crunches</div><div class="fp-exercise-detail">15 each side · slow · no neck pulling</div></div><span class="fp-exercise-target fp-tg-core">Rectus + Obliques</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>On back, hands lightly behind ears. Shoulders off floor.</li><li>Right elbow to left knee, extend right leg.</li><li>Rotate through TORSO. Alternate slowly — 2 sec per rep.</li></ol><div class="fp-howto-tip">💡 Biggest mistake = going fast. Slow down. Quality over speed.</div><div class="fp-howto-science">📊 ACE EMG: bicycle crunches = HIGHEST activation of rectus abdominis AND obliques of 13 exercises tested. 248% more oblique activation than standard crunches.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">3</div><div class="fp-exercise-info"><div class="fp-exercise-name">Cable Woodchop</div><div class="fp-exercise-detail">10 each side · torso rotation</div></div><span class="fp-exercise-target fp-tg-core">Obliques</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Cable high, D-handle. Stand sideways, wide feet.</li><li>Rotate diagonally down (high to low). Arms straight.</li><li>Core drives it, not arms. Hips stable.</li></ol><div class="fp-howto-tip">💡 Slow and controlled. Don't yank.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">4</div><div class="fp-exercise-info"><div class="fp-exercise-name">Hanging Knee Raises</div><div class="fp-exercise-detail">10 reps · no swing · curl pelvis</div></div><span class="fp-exercise-target fp-tg-core">Lower Abs</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Hang from bar, overhand grip. Curl knees to chest — curl pelvis UP.</li><li>Hold 1 sec, lower to dead hang.</li></ol><div class="fp-howto-tip">💡 No swinging = the point. Captain's chair if grip is an issue.</div><div class="fp-howto-science">📊 ACE: hanging raises ranked #2 for rectus abdominis, #1 for lower abs specifically.</div></div></div></div>
-      <div class="fp-warmup-label">Conditioning (15 min)</div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">5</div><div class="fp-exercise-info"><div class="fp-exercise-name">Incline Treadmill Walk</div><div class="fp-exercise-detail">15 min · 10–12% incline · 3.0–3.5 mph</div></div><span class="fp-exercise-target fp-tg-cardio">Cardio + Glutes</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>10–12% incline, 3.0–3.5 mph. Do NOT hold rails.</li><li>Push through heels, torso upright. 15 min straight.</li></ol><div class="fp-howto-tip">💡 Glute workout disguised as cardio. Need to hold on? Reduce speed.</div></div></div></div>
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">1</div><div class="fp-exercise-info"><div class="fp-exercise-name">Pallof Press</div><div class="fp-exercise-detail">12 each · Wk 7–8: 3 sec hold extended</div></div><span class="fp-exercise-target fp-tg-core">Deep Core</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-weight-track"><div class="fp-weight-label">Your Progression</div><div class="fp-weight-bar"><div class="fp-weight-node fp-wn-current"><div class="fp-weight-node-val">25 lbs</div><div class="fp-weight-node-lbl">Month 1</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">30 lbs</div><div class="fp-weight-node-lbl">Wk 5–6</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">30 lbs</div><div class="fp-weight-node-lbl">Wk 7–8</div></div></div><div class="fp-weight-note">Wk 7–8: hold extended position 3 sec per rep instead of 2</div></div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">2</div><div class="fp-exercise-info"><div class="fp-exercise-name">Bicycle Crunches</div><div class="fp-exercise-detail">Wk 5–6: 20 each · Wk 7–8: 20 each, slower</div></div><span class="fp-exercise-target fp-tg-core">Rectus + Obliques</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-howto-tip">💡 Was 15 each → now 20 each. Wk 7–8: 3 sec per rep.</div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">3</div><div class="fp-exercise-info"><div class="fp-exercise-name">Cable Woodchop</div><div class="fp-exercise-detail">10 each · Wk 7–8: <strong>4th set</strong></div></div><span class="fp-exercise-target fp-tg-core">Obliques</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-weight-track"><div class="fp-weight-label">Your Progression</div><div class="fp-weight-bar"><div class="fp-weight-node fp-wn-current"><div class="fp-weight-node-val">25 lbs</div><div class="fp-weight-node-lbl">Month 1</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">30 lbs</div><div class="fp-weight-node-lbl">Wk 5–6</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">30 lbs</div><div class="fp-weight-node-lbl">Wk 7–8</div></div></div><div class="fp-weight-note">Add 4th set at Wk 7–8</div></div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">4</div><div class="fp-exercise-info"><div class="fp-exercise-name">Hanging Knee Raises</div><div class="fp-exercise-detail">Wk 5–6: 12 reps · Wk 7–8: 12 + 2 sec hold</div></div><span class="fp-exercise-target fp-tg-core">Lower Abs</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-howto-tip">💡 Was 10 reps → 12 reps. Wk 7–8: add 2 sec hold at the top of each rep.</div></div></div></div>
+
+      <div class="fp-warmup-label">Conditioning</div>
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">5</div><div class="fp-exercise-info"><div class="fp-exercise-name">Incline Treadmill Walk</div><div class="fp-exercise-detail">Wk 5–6: 15 min, 12% · Wk 7–8: 18 min, 12%</div></div><span class="fp-exercise-target fp-tg-cardio">Cardio + Glutes</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-howto-tip">💡 Bump from 15 → 18 min at Wk 7. Same incline and speed. No rails.</div></div></div></div>
     </div>
 
-    <!-- ===== DAY 4: GLUTES B ===== -->
+    <!-- ===== THURSDAY: GLUTES B ===== -->
     <div class="fp-day" data-day="4">
-      <div class="fp-day-header"><div class="fp-day-badge" style="background:var(--fp-glow-rose);">🍑</div><div><div class="fp-day-name">Glute Focus B</div><div class="fp-day-focus">Squat-dominant + unilateral · higher volume</div></div><div class="fp-day-duration">~50 min</div></div>
-      <div class="fp-warmup-label">Warm-Up (5 min)</div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">W</div><div class="fp-exercise-info"><div class="fp-exercise-name">Monster Walks + Fire Hydrants</div><div class="fp-exercise-detail">2 × 12 each · band above knees</div></div><span class="fp-exercise-target fp-tg-glutes">Activation</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><strong>Monster Walks:</strong> Band above knees, quarter squat. 12 steps forward, 12 back.<br><strong>Fire Hydrants:</strong> All fours, lift knee to side at 90°. Squeeze, lower.<div class="fp-howto-tip">💡 Hips level on hydrants — don't shift sideways.</div></div></div></div>
+      <div class="fp-day-header"><div class="fp-day-badge" style="background:var(--fp-glow-rose);">🍑</div><div><div class="fp-day-name">Glute Focus B</div><div class="fp-day-focus">Squat-dominant · step-ups lead the day</div></div><div class="fp-day-duration">~55 min</div></div>
+      <div class="fp-warmup-label">Warm-Up</div>
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">W</div><div class="fp-exercise-info"><div class="fp-exercise-name">Monster Walks + Fire Hydrants</div><div class="fp-exercise-detail">2 × 12 each · same band</div></div><span class="fp-exercise-target fp-tg-glutes">Activation</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner">Same as month 1. Activation only.</div></div></div>
       <div class="fp-warmup-label">Working Sets</div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">1</div><div class="fp-exercise-info"><div class="fp-exercise-name">Step-Ups (Dumbbell)</div><div class="fp-exercise-detail">3 × 10 each · knee-height box · heel drive</div></div><span class="fp-exercise-target fp-tg-glutes">Glutes</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Box at knee height. Full foot on box. Dumbbell each hand.</li><li>Drive through top-leg heel ONLY. Don't push off ground.</li><li>Stand fully, squeeze glute, lower with control.</li></ol><div class="fp-howto-tip">💡 Higher box = more glute. Lean slightly forward. Don't cheat with bottom foot.</div><div class="fp-howto-science">📊 PMC Systematic Review (2020): step-ups showed the HIGHEST glute max EMG of ALL exercises — averaging 125% MVIC (range 104–169%). Your most important exercise today.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">2</div><div class="fp-exercise-info"><div class="fp-exercise-name">Sumo Squat (Goblet)</div><div class="fp-exercise-detail">3 × 12 · wide stance · knees out</div></div><span class="fp-exercise-target fp-tg-glutes">Glutes + Inner</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Wide feet, toes 45°. Dumbbell at chest (goblet).</li><li>Push knees out, squat down. Torso upright.</li><li>Drive through heels, squeeze glutes to stand.</li></ol><div class="fp-howto-tip">💡 Start 15–20 lbs.</div><div class="fp-howto-science">📊 2025 meta-analysis: squats at parallel or full ROM significantly enhance glute hypertrophy.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">3</div><div class="fp-exercise-info"><div class="fp-exercise-name">Single-Leg Hip Thrust</div><div class="fp-exercise-detail">3 × 10 each · bodyweight to start</div></div><span class="fp-exercise-target fp-tg-glutes">Glutes</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Upper back on bench. Lift one foot. Drive through planted heel.</li><li>Squeeze 1 sec at top. Lower slowly. All reps, switch.</li></ol><div class="fp-howto-tip">💡 Start bodyweight. Weaker side first.</div><div class="fp-howto-science">📊 Single-leg hip thrust ranks among highest glute activators with minimal momentum — ideal for fixing asymmetries between sides.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">4</div><div class="fp-exercise-info"><div class="fp-exercise-name">Cable Pull-Through</div><div class="fp-exercise-detail">3 × 12 · hinge at hips</div></div><span class="fp-exercise-target fp-tg-glutes">Glutes + Hams</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Rope on low pulley. Straddle, face away. Grab between legs.</li><li>Hinge hips back. Squeeze glutes to stand tall.</li></ol><div class="fp-howto-tip">💡 Like an RDL with constant cable tension. Arms don't work — hips do everything.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">5</div><div class="fp-exercise-info"><div class="fp-exercise-name">Frog Pumps</div><div class="fp-exercise-detail">2 × 20 · soles together · burnout</div></div><span class="fp-exercise-target fp-tg-glutes">Glutes</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>On back, soles together, knees out (butterfly). Feet close to butt.</li><li>Drive hips up fast. Squeeze, lower, repeat immediately.</li></ol><div class="fp-howto-tip">💡 Finisher — burn by rep 10. No weight needed.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">6</div><div class="fp-exercise-info"><div class="fp-exercise-name">Bird Dog</div><div class="fp-exercise-detail">2 × 10 each · zero torso movement</div></div><span class="fp-exercise-target fp-tg-core">Core</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>All fours. Extend right arm + left leg simultaneously. Hold 2 sec.</li><li>Return, repeat opposite. Water bottle on back — if it falls, too much rotation.</li></ol><div class="fp-howto-science">📊 2024: bird dog produced greatest increase in transverse abdominis thickness of all core stability exercises tested.</div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">1</div><div class="fp-exercise-info"><div class="fp-exercise-name">Step-Ups (Cable)</div><div class="fp-exercise-detail">Wk 7–8: <strong>4 × 10 each</strong></div></div><span class="fp-exercise-target fp-tg-glutes">Glutes</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-weight-track"><div class="fp-weight-label">Your Progression — #1 EMG for glutes</div><div class="fp-weight-bar"><div class="fp-weight-node fp-wn-current"><div class="fp-weight-node-val">25 lbs</div><div class="fp-weight-node-lbl">Month 1</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">30 lbs</div><div class="fp-weight-node-lbl">Wk 5–6</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">35 lbs</div><div class="fp-weight-node-lbl">Wk 7–8</div></div></div><div class="fp-weight-note">Add 4th set at Wk 7–8. Highest glute activation of ALL exercises (125% MVIC).</div></div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">2</div><div class="fp-exercise-info"><div class="fp-exercise-name">Sumo Squat (Goblet)</div><div class="fp-exercise-detail">3 × 12 · wide · deep</div></div><span class="fp-exercise-target fp-tg-glutes">Glutes + Inner</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-weight-track"><div class="fp-weight-label">Your Progression</div><div class="fp-weight-bar"><div class="fp-weight-node fp-wn-current"><div class="fp-weight-node-val">20 lbs</div><div class="fp-weight-node-lbl">Month 1</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">25 lbs</div><div class="fp-weight-node-lbl">Wk 5–6</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">30 lbs</div><div class="fp-weight-node-lbl">Wk 7–8</div></div></div><div class="fp-weight-note">Single dumbbell, goblet grip</div></div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">3</div><div class="fp-exercise-info"><div class="fp-exercise-name">Single-Leg Hip Thrust</div><div class="fp-exercise-detail">3 × 10 each</div></div><span class="fp-exercise-target fp-tg-glutes">Glutes</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-weight-track"><div class="fp-weight-label">Your Progression</div><div class="fp-weight-bar"><div class="fp-weight-node fp-wn-current"><div class="fp-weight-node-val">BW</div><div class="fp-weight-node-lbl">Month 1</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">BW+pause</div><div class="fp-weight-node-lbl">Wk 5–6</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">BW+10 lb</div><div class="fp-weight-node-lbl">Wk 7–8</div></div></div><div class="fp-weight-note">Wk 5–6: 2 sec pause at top. Wk 7–8: 10 lb plate on hips. This will feel like a HUGE milestone 🔥</div></div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">4</div><div class="fp-exercise-info"><div class="fp-exercise-name">Cable Pull-Through</div><div class="fp-exercise-detail">3 × 12</div></div><span class="fp-exercise-target fp-tg-glutes">Glutes + Hams</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-weight-track"><div class="fp-weight-label">Your Progression</div><div class="fp-weight-bar"><div class="fp-weight-node fp-wn-current"><div class="fp-weight-node-val">25 lbs</div><div class="fp-weight-node-lbl">Month 1</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">30 lbs</div><div class="fp-weight-node-lbl">Wk 5–6</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">35 lbs</div><div class="fp-weight-node-lbl">Wk 7–8</div></div></div></div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">5</div><div class="fp-exercise-info"><div class="fp-exercise-name">Frog Pumps</div><div class="fp-exercise-detail">2 × 25 (was 20) · Wk 7–8: 2 × 30</div></div><span class="fp-exercise-target fp-tg-glutes">Glutes</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-howto-tip">💡 Bodyweight finisher. Just add reps: 20 → 25 → 30.</div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">6</div><div class="fp-exercise-info"><div class="fp-exercise-name">Bird Dog</div><div class="fp-exercise-detail">2 × 12 each (was 10)</div></div><span class="fp-exercise-target fp-tg-core">Core</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-howto-tip">💡 10 → 12 reps. Hold each rep 3 sec instead of 2.</div></div></div></div>
     </div>
 
-    <!-- ===== DAY 5: FULL BODY ===== -->
+    <!-- ===== FRIDAY: FULL BODY ===== -->
     <div class="fp-day" data-day="5">
-      <div class="fp-day-header"><div class="fp-day-badge" style="background:var(--fp-glow-peach);">⚡</div><div><div class="fp-day-name">Full Body Sculpt</div><div class="fp-day-focus">Compounds + arm &amp; core finisher</div></div><div class="fp-day-duration">~50 min</div></div>
+      <div class="fp-day-header"><div class="fp-day-badge" style="background:var(--fp-glow-peach);">⚡</div><div><div class="fp-day-name">Full Body Sculpt</div><div class="fp-day-focus">Compounds + arm/core finisher</div></div><div class="fp-day-duration">~50 min</div></div>
       <div class="fp-warmup-label">Working Sets</div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">1</div><div class="fp-exercise-info"><div class="fp-exercise-name">Goblet Squat</div><div class="fp-exercise-detail">3 × 12 · deep · chest tall</div></div><span class="fp-exercise-target fp-tg-compound">Legs + Glutes</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Dumbbell at chest. Sit deep, elbows inside knees.</li><li>Drive through whole foot, squeeze glutes at top. 15–20 lbs.</li></ol><div class="fp-howto-science">📊 2025 meta-analysis: full ROM squats significantly enhance glute hypertrophy. Goblet is the safest way for beginners to achieve full depth.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">2</div><div class="fp-exercise-info"><div class="fp-exercise-name">Dumbbell Row</div><div class="fp-exercise-detail">3 × 10 each · pull to hip</div></div><span class="fp-exercise-target fp-tg-compound">Back</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Knee + hand on bench. Dumbbell hanging. Pull to HIP, elbow to ceiling.</li><li>Squeeze shoulder blade 1 sec. Lower slowly. Switch. 12–15 lbs.</li></ol></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">3</div><div class="fp-exercise-info"><div class="fp-exercise-name">Dumbbell Bench Press</div><div class="fp-exercise-detail">3 × 10–12 · full ROM</div></div><span class="fp-exercise-target fp-tg-compound">Chest + Triceps</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Flat bench. Shoulder blades together. Press up, lower 3 sec. 10–12 lbs.</li></ol><div class="fp-howto-science">📊 EMG: bench press achieves 95% MVC pec major, 79% anterior delts, 67% triceps — most efficient upper body compound.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">4</div><div class="fp-exercise-info"><div class="fp-exercise-name">Walking Lunges</div><div class="fp-exercise-detail">3 × 10 each · long stride · lean forward</div></div><span class="fp-exercise-target fp-tg-glutes">Glutes</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>BIG step forward. Lower back knee. Drive through front heel.</li><li>Alternate legs. 10 per side. 8–10 lbs. Long stride + forward lean = glutes.</li></ol><div class="fp-howto-science">📊 ACE EMG: lunges generated significantly more gluteus medius activation than squats.</div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">1</div><div class="fp-exercise-info"><div class="fp-exercise-name">Goblet Squat</div><div class="fp-exercise-detail">3 × 12 · deep</div></div><span class="fp-exercise-target fp-tg-compound">Legs + Glutes</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-weight-track"><div class="fp-weight-label">Your Progression</div><div class="fp-weight-bar"><div class="fp-weight-node fp-wn-current"><div class="fp-weight-node-val">15 lbs</div><div class="fp-weight-node-lbl">Month 1</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">20 lbs</div><div class="fp-weight-node-lbl">Wk 5–6</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">25 lbs</div><div class="fp-weight-node-lbl">Wk 7–8</div></div></div><div class="fp-weight-note">Single dumbbell, goblet grip</div></div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">2</div><div class="fp-exercise-info"><div class="fp-exercise-name">Dumbbell Row</div><div class="fp-exercise-detail">3 × 10 each</div></div><span class="fp-exercise-target fp-tg-compound">Back</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-weight-track"><div class="fp-weight-label">Your Progression</div><div class="fp-weight-bar"><div class="fp-weight-node fp-wn-current"><div class="fp-weight-node-val">10–15 lbs</div><div class="fp-weight-node-lbl">Month 1</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">15 lbs</div><div class="fp-weight-node-lbl">Wk 5–6</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">17.5–20 lbs</div><div class="fp-weight-node-lbl">Wk 7–8</div></div></div></div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">3</div><div class="fp-exercise-info"><div class="fp-exercise-name">Dumbbell Bench Press</div><div class="fp-exercise-detail">3 × 10–12</div></div><span class="fp-exercise-target fp-tg-compound">Chest + Tri</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-weight-track"><div class="fp-weight-label">Your Progression</div><div class="fp-weight-bar"><div class="fp-weight-node fp-wn-current"><div class="fp-weight-node-val">10–15 lbs</div><div class="fp-weight-node-lbl">Month 1</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">15 reps</div><div class="fp-weight-node-lbl">Wk 5–6</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">4-sec neg</div><div class="fp-weight-node-lbl">Wk 7–8</div></div></div></div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">4</div><div class="fp-exercise-info"><div class="fp-exercise-name">Walking Lunges</div><div class="fp-exercise-detail">3 × 10 each · long stride</div></div><span class="fp-exercise-target fp-tg-glutes">Glutes</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-weight-track"><div class="fp-weight-label">Your Progression</div><div class="fp-weight-bar"><div class="fp-weight-node fp-wn-current"><div class="fp-weight-node-val">10 lbs</div><div class="fp-weight-node-lbl">Month 1</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">12.5 lbs</div><div class="fp-weight-node-lbl">Wk 5–6</div></div><div class="fp-weight-connector"></div><div class="fp-weight-node"><div class="fp-weight-node-val">15 lbs</div><div class="fp-weight-node-lbl">Wk 7–8</div></div></div><div class="fp-weight-note">Each hand. No 12.5? Use 10 + add 2 extra reps per set.</div></div></div></div></div>
+
       <div class="fp-warmup-label">Arm + Core Finisher</div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">5</div><div class="fp-exercise-info"><div class="fp-exercise-name">Bicep 21s</div><div class="fp-exercise-detail">2 rounds · 7 bottom / 7 top / 7 full</div></div><span class="fp-exercise-target fp-tg-arms">Biceps</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>7 reps bottom half → 7 reps top half → 7 full curls. Rest 60 sec, repeat.</li></ol><div class="fp-howto-tip">💡 ~60% of normal curl weight. Burns by the full-range set.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">6</div><div class="fp-exercise-info"><div class="fp-exercise-name">Tricep Rope Pushdowns</div><div class="fp-exercise-detail">2 × 15 · spread rope at bottom</div></div><span class="fp-exercise-target fp-tg-arms">Triceps Lateral</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Rope on high cable. Elbows pinned. Push down, SPREAD rope at bottom, squeeze 1 sec.</li></ol><div class="fp-howto-science">📊 German EMG: pushdowns best activate lateral + medial triceps. Paired with overhead extensions (Tue) = all 3 heads across the week.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">7</div><div class="fp-exercise-info"><div class="fp-exercise-name">Ab Wheel Rollout</div><div class="fp-exercise-detail">2 × 10 · slow · brace entire time</div></div><span class="fp-exercise-target fp-tg-core">Core</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Kneel, grip wheel. Brace core. Roll forward slowly. Pull back with abs.</li><li>Easier: stability ball with forearms on top instead of wheel.</li></ol><div class="fp-howto-tip">💡 Back arching? Gone too far. Shorten range.</div><div class="fp-howto-science">📊 J. Orthopaedic &amp; Sports PT: rollout = MOST EFFECTIVE for upper + lower rectus abdominis, both obliques, and lats — while minimizing hip flexor involvement.</div></div></div></div>
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">5</div><div class="fp-exercise-info"><div class="fp-exercise-name">Bicep 21s</div><div class="fp-exercise-detail">2 rounds · same weight · tighter form</div></div><span class="fp-exercise-target fp-tg-arms">Biceps</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-howto-tip">💡 Same weight as month 1. Focus on zero momentum and slower reps.</div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">6</div><div class="fp-exercise-info"><div class="fp-exercise-name">Tricep Rope Pushdowns</div><div class="fp-exercise-detail">2 × 15 · spread at bottom</div></div><span class="fp-exercise-target fp-tg-arms">Triceps</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-howto-tip">💡 Same approach as other arms: push to 15+ reps, then add 4-sec negatives.</div></div></div></div>
+
+      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">7</div><div class="fp-exercise-info"><div class="fp-exercise-name">Ab Wheel Rollout</div><div class="fp-exercise-detail">2 × 12 (was 10) · extend further</div></div><span class="fp-exercise-target fp-tg-core">Core</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><div class="fp-howto-tip">💡 10 → 12 reps. Also try to extend ~6 inches further than month 1. If back arches, stop there.</div></div></div></div>
     </div>
 
-    <!-- ===== DAY 6: SATURDAY RECOVERY ===== -->
+    <!-- ===== SATURDAY: RECOVERY ===== -->
     <div class="fp-day" data-day="6">
-      <div class="fp-day-header"><div class="fp-day-badge" style="background:var(--fp-glow-mint);">🧘</div><div><div class="fp-day-name">Active Recovery</div><div class="fp-day-focus">Mobility, foam rolling &amp; light movement</div></div><div class="fp-day-duration">~45 min</div></div>
-
-      <div class="fp-rest-block">
-        <div class="fp-rest-block-title">Why Recovery Days Matter</div>
-        <div class="fp-rest-block-sub">Muscle grows during rest, not during the workout. These sessions accelerate repair, reduce soreness, and improve flexibility so you perform better Mon–Fri.</div>
-      </div>
-
-      <div class="fp-warmup-label">Foam Rolling (15 min)</div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">1</div><div class="fp-exercise-info"><div class="fp-exercise-name">Glute &amp; Piriformis Roll</div><div class="fp-exercise-detail">90 sec each side · sit on roller · cross ankle over knee</div></div><span class="fp-exercise-target fp-tg-recovery">Recovery</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Sit on foam roller. Cross right ankle over left knee.</li><li>Lean toward right hip. Roll slowly over the glute and piriformis (the deep muscle under the glute).</li><li>When you find a tender spot, pause and hold for 20–30 seconds until the pain decreases.</li><li>90 seconds total per side.</li></ol><div class="fp-howto-tip">💡 After 2 heavy glute days, this is critical. Your piriformis will likely be very tight — breathe through it.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">2</div><div class="fp-exercise-info"><div class="fp-exercise-name">Quad &amp; Hip Flexor Roll</div><div class="fp-exercise-detail">90 sec each leg · face down on roller</div></div><span class="fp-exercise-target fp-tg-recovery">Recovery</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Face down, forearms supporting you. Roller under front of one thigh.</li><li>Roll slowly from just above the knee to the hip crease.</li><li>Pause on tender spots 20–30 seconds. 90 sec per leg.</li></ol><div class="fp-howto-tip">💡 Tight hip flexors can inhibit your glutes from firing properly (reciprocal inhibition). Rolling them out helps your glutes work harder on training days.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">3</div><div class="fp-exercise-info"><div class="fp-exercise-name">Hamstring Roll</div><div class="fp-exercise-detail">90 sec each · roller under thigh</div></div><span class="fp-exercise-target fp-tg-recovery">Recovery</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Sit on floor, roller under one hamstring. Other leg crossed on top for extra pressure.</li><li>Roll from just above the knee to just below the sit bone.</li><li>Rotate leg in and out to hit medial and lateral hamstrings. 90 sec per side.</li></ol></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">4</div><div class="fp-exercise-info"><div class="fp-exercise-name">Upper Back / Thoracic Roll</div><div class="fp-exercise-detail">2 min · arms crossed · mid-back focus</div></div><span class="fp-exercise-target fp-tg-recovery">Recovery</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Roller under mid-back, knees bent, feet flat. Cross arms over chest or hug yourself.</li><li>Slowly roll from mid-back to upper back. Don't roll the lower back.</li><li>Pause where it feels tight. You may hear some gentle pops — that's normal.</li></ol><div class="fp-howto-tip">💡 This counteracts desk posture from work. 2 minutes is enough to make a noticeable difference.</div></div></div></div>
-
-      <div class="fp-warmup-label">Stretching Routine (15 min) — hold each 45–60 sec</div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">5</div><div class="fp-exercise-info"><div class="fp-exercise-name">90/90 Hip Stretch</div><div class="fp-exercise-detail">60 sec each side · both legs at 90°</div></div><span class="fp-exercise-target fp-tg-mobility">Mobility</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Sit on floor. Front leg bent 90° in front of you, back leg bent 90° to the side. Both knees at right angles.</li><li>Sit tall and lean your torso forward over the front shin. Feel the stretch deep in the front hip and glute.</li><li>Hold 60 sec. Switch sides.</li></ol><div class="fp-howto-tip">💡 This is the single best hip mobility stretch for people who train glutes heavy. Hits external rotation, which gets very tight from hip thrusts and squats.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">6</div><div class="fp-exercise-info"><div class="fp-exercise-name">Couch Stretch (Hip Flexor)</div><div class="fp-exercise-detail">60 sec each · back foot on bench or wall</div></div><span class="fp-exercise-target fp-tg-mobility">Mobility</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Kneel in front of a bench or wall. Place back foot up on the surface behind you (toes pointing up wall, or top of foot on bench).</li><li>Step the front foot forward into a lunge position. Squeeze the back-side glute.</li><li>You should feel a deep stretch in the front of the back-leg hip. Stay upright — don't lean forward.</li><li>60 seconds per side.</li></ol><div class="fp-howto-tip">💡 If your hip flexors are tight (from sitting at a desk all day), this directly improves your ability to extend your hips fully during hip thrusts and deadlifts.</div></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">7</div><div class="fp-exercise-info"><div class="fp-exercise-name">Figure-4 / Pigeon Stretch</div><div class="fp-exercise-detail">60 sec each · deep glute stretch</div></div><span class="fp-exercise-target fp-tg-mobility">Mobility</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Lie on back. Cross right ankle over left knee. Pull left knee toward chest.</li><li>You should feel a deep stretch in the right glute and outer hip.</li><li>Gently push right knee away from you with your right elbow for a deeper stretch.</li><li>Hold 60 sec. Switch sides.</li></ol></div></div></div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">8</div><div class="fp-exercise-info"><div class="fp-exercise-name">Chest Doorway Stretch</div><div class="fp-exercise-detail">45 sec each arm · opens shoulders</div></div><span class="fp-exercise-target fp-tg-mobility">Mobility</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Stand in a doorway. Place right forearm on the door frame at 90°.</li><li>Step through with right foot. Rotate torso slightly away until you feel a stretch across your chest and front of shoulder.</li><li>45 sec per side.</li></ol><div class="fp-howto-tip">💡 Counteracts the forward-shoulder posture from desk work and phone use. Improves bench press and shoulder press form.</div></div></div></div>
-
-      <div class="fp-warmup-label">Light Movement (15 min)</div>
-      <div class="fp-exercise"><div class="fp-exercise-top"><div class="fp-exercise-num">9</div><div class="fp-exercise-info"><div class="fp-exercise-name">Easy Walk (Outdoors)</div><div class="fp-exercise-detail">15–20 min · casual pace · flat ground · no incline</div></div><span class="fp-exercise-target fp-tg-cardio">Active Recovery</span><div class="fp-exercise-toggle">▼</div></div><div class="fp-howto"><div class="fp-howto-inner"><ol class="fp-howto-steps"><li>Just a casual walk — neighborhood, park, wherever is pleasant.</li><li>No tracking pace, no pushing hard. This is about blood flow and mental reset.</li><li>15–20 minutes. Morning is ideal for circadian rhythm benefits.</li></ol><div class="fp-howto-tip">💡 Light walking increases blood flow to sore muscles, delivering nutrients and removing waste products. This genuinely accelerates recovery — it's not just "doing nothing."</div></div></div></div>
+      <div class="fp-day-header"><div class="fp-day-badge" style="background:var(--fp-glow-mint);">🧘</div><div><div class="fp-day-name">Active Recovery</div><div class="fp-day-focus">Foam roll + stretch + walk</div></div><div class="fp-day-duration">~45 min</div></div>
+      <div class="fp-rest-block"><div class="fp-rest-block-title">Same recovery routine as Month 1</div><div class="fp-rest-block-sub">Foam rolling (15 min): glutes/piriformis, quads/hip flexors, hamstrings, upper back. Stretching (15 min): 90/90 hip, couch stretch, figure-4, chest doorway — 60 sec holds. Walk (15 min): easy, outdoors, casual pace.</div></div>
+      <div class="fp-note-card"><strong>Month 2 addition:</strong> Your muscles are working harder now, so spend an extra 15–30 sec on any spot that's especially tender during foam rolling. If you've noticed one glute is more sore than the other after single-leg hip thrusts, give the weaker side extra attention.</div>
     </div>
 
-    <!-- ===== DAY 7: SUNDAY PREP ===== -->
+    <!-- ===== SUNDAY: PREP ===== -->
     <div class="fp-day" data-day="7">
-      <div class="fp-day-header"><div class="fp-day-badge" style="background:rgba(244,165,116,0.08);">📋</div><div><div class="fp-day-name">Prep &amp; Recovery</div><div class="fp-day-focus">Meal prep, weekly review &amp; mindset reset</div></div><div class="fp-day-duration">~2 hrs total</div></div>
-
-      <div class="fp-rest-block">
-        <div class="fp-rest-block-title">🍳 Meal Prep Session (60–90 min)</div>
-        <div class="fp-rest-block-sub">Prep 4–5 days of protein-rich meals. This is the #1 thing that determines whether your nutrition targets stick.</div>
-        <div class="fp-rest-item"><span class="fp-rest-icon">🥩</span><div><strong>Protein Prep (pick 2):</strong> Bake 2 lbs chicken thighs (seasoned, sheet pan, 400°F 25 min) · Cook 1 lb ground turkey · Hard-boil 8–10 eggs · Bake a batch of salmon fillets</div></div>
-        <div class="fp-rest-item"><span class="fp-rest-icon">🍚</span><div><strong>Carb Prep (pick 2):</strong> Cook a big pot of rice (2–3 cups dry) · Roast a sheet pan of sweet potatoes (cubed, 400°F 30 min) · Cook a batch of quinoa · Prep overnight oats (4–5 mason jars)</div></div>
-        <div class="fp-rest-item"><span class="fp-rest-icon">🥬</span><div><strong>Veggie Prep:</strong> Wash and chop bell peppers, cucumbers, cherry tomatoes · Roast broccoli and asparagus with the proteins · Prep a big container of mixed greens for quick salads</div></div>
-        <div class="fp-rest-item"><span class="fp-rest-icon">🥤</span><div><strong>Snack Prep:</strong> Portion out Greek yogurt + berries · Pre-make protein shake bags (scoop + banana in ziplock, add liquid day-of) · Portion almonds/trail mix into snack bags</div></div>
-      </div>
-
-      <div class="fp-rest-block">
-        <div class="fp-rest-block-title">📊 Weekly Review (15 min)</div>
-        <div class="fp-rest-block-sub">Pull out your phone and review the past week. This 15-minute habit is what separates people who get results from people who just "go to the gym."</div>
+      <div class="fp-day-header"><div class="fp-day-badge" style="background:rgba(244,165,116,.08);">📋</div><div><div class="fp-day-name">Prep &amp; Recovery</div><div class="fp-day-focus">Meal prep + weekly review + Monday prep</div></div><div class="fp-day-duration">~2 hrs</div></div>
+      <div class="fp-rest-block"><div class="fp-rest-block-title">🍳 Meal Prep</div><div class="fp-rest-block-sub">Same structure: 2 proteins, 2 carbs, veggies, snacks. Check last week's prep — what ran out first? Make more of that.</div></div>
+      <div class="fp-rest-block"><div class="fp-rest-block-title">📊 Weekly Review — Month 2 Focus Questions</div>
         <ul class="fp-checklist">
-          <li><strong>Check your weight log:</strong> Did you track your weights for each exercise? If not, start this week. Open Notes app, create a note for each day.</li>
-          <li><strong>Progressive overload check:</strong> Can you increase weight by 2.5–5 lbs on any exercise this week? Or add 1–2 reps? Pick at least 1 exercise to push.</li>
-          <li><strong>Protein audit:</strong> Did you hit 100–115g most days? If not, identify the gap — usually lunch. Add a protein shake or Greek yogurt.</li>
-          <li><strong>Sleep audit:</strong> Average 7+ hours? Sleep is when muscle grows. If you're under 7, this is your biggest gain.</li>
-          <li><strong>How do you feel?</strong> Joints okay? Energy good? Motivation? If anything is off, adjust before it becomes a problem.</li>
+          <li><strong>Did you hit every target weight this week?</strong> If yes, move up. If you missed reps, stay put one more week.</li>
+          <li><strong>Which exercise improved the most?</strong> Celebrate that. Write it down.</li>
+          <li><strong>Which exercise feels stuck?</strong> That's the one to add a 4th set to instead of more weight.</li>
+          <li><strong>Protein check:</strong> Did you average 100g+ most days?</li>
+          <li><strong>Sleep check:</strong> 7+ hours? This matters more in month 2 because the loads are higher.</li>
+          <li><strong>Body changes:</strong> How do clothes fit? Notice anything in the mirror? Take a progress photo if you haven't.</li>
         </ul>
       </div>
-
-      <div class="fp-rest-block">
-        <div class="fp-rest-block-title">🧘 Light Stretching (15 min)</div>
-        <div class="fp-rest-block-sub">A short, gentle stretch session to prepare your body for Monday's glute day.</div>
-        <div class="fp-rest-item"><span class="fp-rest-icon">1</span><div><strong>Cat-Cow Stretch:</strong> All fours. Arch back (cat), then drop belly (cow). 10 slow reps. Warms up the spine.</div></div>
-        <div class="fp-rest-item"><span class="fp-rest-icon">2</span><div><strong>World's Greatest Stretch:</strong> Lunge forward, plant opposite hand, rotate torso toward front knee, reach arm to ceiling. 5 each side. Hits hip flexors, thoracic spine, hamstrings, and groin in one move.</div></div>
-        <div class="fp-rest-item"><span class="fp-rest-icon">3</span><div><strong>Child's Pose:</strong> Kneel, sit hips back, arms extended forward on floor. Hold 60 sec. Opens hips and lower back.</div></div>
-        <div class="fp-rest-item"><span class="fp-rest-icon">4</span><div><strong>Supine Spinal Twist:</strong> On back, pull one knee across body. Hold 45 sec each side. Decompresses lower back after a week of training.</div></div>
-        <div class="fp-rest-item"><span class="fp-rest-icon">5</span><div><strong>Standing Quad Stretch:</strong> Hold foot behind you, pull heel to butt. 30 sec each side. Keeps quads and hip flexors mobile for tomorrow's hip thrusts.</div></div>
-      </div>
-
-      <div class="fp-rest-block">
-        <div class="fp-rest-block-title">😴 Sleep Prep Checklist</div>
-        <div class="fp-rest-block-sub">Sunday night sleep quality directly impacts Monday performance.</div>
-        <ul class="fp-checklist">
-          <li><strong>Set alarm for 7+ hours before you need to wake up</strong></li>
-          <li><strong>Screens off 30 min before bed</strong> — blue light suppresses melatonin</li>
-          <li><strong>Room temp 65–68°F</strong> — optimal for sleep onset</li>
-          <li><strong>Gym bag packed tonight</strong> — clothes, water bottle, headphones. Remove friction.</li>
-          <li><strong>Monday's meals packed</strong> — grab-and-go = no excuses</li>
-        </ul>
-      </div>
+      <div class="fp-rest-block"><div class="fp-rest-block-title">🧘 Light Stretching + Sleep Prep</div><div class="fp-rest-block-sub">Same as month 1: cat-cow, world's greatest stretch, child's pose, spinal twist, quad stretch. Pack gym bag. Set alarm for 7+ hrs sleep.</div></div>
     </div>
 
     <!-- NUTRITION -->
-    <div class="fp-section-header">
-      <div class="fp-section-icon" style="background:var(--fp-glow-mint);">🥗</div>
-      <div><div class="fp-section-title">Nutrition Guidelines</div><div class="fp-section-subtitle">Fuel the muscle, trim the midsection</div></div>
-    </div>
+    <div class="fp-section-header"><div class="fp-section-icon" style="background:var(--fp-glow-mint);">🥗</div><div><div class="fp-section-title">Nutrition</div><div class="fp-section-subtitle">Same targets — consistency is key</div></div></div>
     <div class="fp-card-grid">
-      <div class="fp-info-card"><div class="fp-info-card-title">Daily Calories</div><div class="fp-info-card-value" style="color:var(--fp-peach);">~1,750–1,900</div><div class="fp-info-card-note">Slight surplus for muscle. Adjust after 2–3 weeks.</div></div>
-      <div class="fp-info-card"><div class="fp-info-card-title">Protein</div><div class="fp-info-card-value" style="color:var(--fp-rose);">100–115g</div><div class="fp-info-card-note">~0.8g/lb. Non-negotiable for glute &amp; arm muscle.</div></div>
-      <div class="fp-info-card"><div class="fp-info-card-title">Carbs</div><div class="fp-info-card-value" style="color:var(--fp-mint);">190–220g</div><div class="fp-info-card-note">Prioritize around training for energy.</div></div>
-      <div class="fp-info-card"><div class="fp-info-card-title">Fats</div><div class="fp-info-card-value" style="color:var(--fp-lavender);">55–65g</div><div class="fp-info-card-note">Avocado, nuts, olive oil, eggs.</div></div>
-    </div>
-
-    <!-- TIPS -->
-    <div class="fp-section-header">
-      <div class="fp-section-icon" style="background:rgba(168,156,207,0.08);">💡</div>
-      <div><div class="fp-section-title">Key Principles</div><div class="fp-section-subtitle">What the research says</div></div>
-    </div>
-    <div class="fp-info-card">
-      <ul class="fp-tip-list">
-        <li><span class="fp-tip-icon">🍑</span><div><strong>Glutes 2×/wk, different patterns</strong> — Mon = hip-hinge (thrusts, RDLs). Thu = squat-dominant (step-ups, sumo). 2025 meta-analysis: combined hip extension exercises significantly promote hypertrophy.</div></li>
-        <li><span class="fp-tip-icon">💪</span><div><strong>Arms: all angles</strong> — Concentration curls (#1 EMG biceps) + hammer curls (brachialis width). Triangle push-ups (#1 EMG triceps) + overhead ext (long head) + pushdowns (lateral). Full coverage.</div></li>
-        <li><span class="fp-tip-icon">🎯</span><div><strong>Core: deep + surface</strong> — Pallof press + dead bugs = transverse abdominis (corset). Bicycle crunches + ab wheel = rectus abdominis + obliques. Both layers addressed.</div></li>
-        <li><span class="fp-tip-icon">📈</span><div><strong>Progressive overload</strong> — Add 2.5–5 lbs or 1–2 reps every 1–2 weeks. Track in phone.</div></li>
-        <li><span class="fp-tip-icon">🧘</span><div><strong>Recovery = gains</strong> — Saturday foam rolling + stretching improves flexibility and accelerates repair. Sunday prep eliminates excuses.</div></li>
-        <li><span class="fp-tip-icon">💧</span><div><strong>Hydration</strong> — Body water 57.3% is solid. 80–100 oz/day, more in Houston heat.</div></li>
-      </ul>
+      <div class="fp-info-card"><div class="fp-info-card-title">Calories</div><div class="fp-info-card-value" style="color:var(--fp-peach);">~1,750–1,900</div><div class="fp-info-card-note">Same as month 1. Adjust only if weight is trending in an unwanted direction after 2+ weeks.</div></div>
+      <div class="fp-info-card"><div class="fp-info-card-title">Protein</div><div class="fp-info-card-value" style="color:var(--fp-rose);">100–115g</div><div class="fp-info-card-note">Even more important now — heavier loads = more repair needed.</div></div>
+      <div class="fp-info-card"><div class="fp-info-card-title">Carbs</div><div class="fp-info-card-value" style="color:var(--fp-mint);">190–220g</div><div class="fp-info-card-note">Pre-workout carbs matter more now. Banana + oats 60–90 min before gym.</div></div>
+      <div class="fp-info-card"><div class="fp-info-card-title">Fats</div><div class="fp-info-card-value" style="color:var(--fp-lavender);">55–65g</div><div class="fp-info-card-note">Same. Avocado, nuts, olive oil, eggs.</div></div>
     </div>
 
     <!-- PROGRESSION -->
-    <div class="fp-section-header">
-      <div class="fp-section-icon" style="background:rgba(116,180,212,0.08);">📊</div>
-      <div><div class="fp-section-title">12-Week Progression</div><div class="fp-section-subtitle">Where you're headed</div></div>
-    </div>
+    <div class="fp-section-header"><div class="fp-section-icon" style="background:rgba(116,180,212,.08);">📊</div><div><div class="fp-section-title">12-Week Progression</div><div class="fp-section-subtitle">You are here</div></div></div>
     <div class="fp-prog-track">
-      <div class="fp-prog-phase fp-current"><div class="fp-prog-dot"></div><div class="fp-prog-label"><strong>Wk 1–4</strong>Learn form · build habit</div></div>
+      <div class="fp-prog-phase"><div class="fp-prog-dot"></div><div class="fp-prog-label"><strong>Wk 1–4</strong>✅ Complete</div></div>
       <div class="fp-prog-line"></div>
-      <div class="fp-prog-phase"><div class="fp-prog-dot"></div><div class="fp-prog-label"><strong>Wk 5–8</strong>Add weight · add sets</div></div>
+      <div class="fp-prog-phase fp-current"><div class="fp-prog-dot"></div><div class="fp-prog-label"><strong>Wk 5–8</strong>YOU ARE HERE</div></div>
       <div class="fp-prog-line"></div>
       <div class="fp-prog-phase"><div class="fp-prog-dot"></div><div class="fp-prog-label"><strong>Wk 9–12</strong>Advanced · reassess</div></div>
     </div>
-    <div class="fp-note-card">
-      <strong>Scale weight may go up</strong> as you build muscle — that's good. Muscle is denser than fat. Trust the mirror, how clothes fit, and strength numbers. Re-measure body comp around week 8–10.
-    </div>
-    <div class="fp-footer">BUILT FOR STEPHANIE · EVIDENCE-BASED · MARCH 2026</div>
+    <div class="fp-note-card"><strong>Month 2 rule:</strong> Only increase weight when you can complete ALL reps with good form. If you get the weight up but your form breaks, stay at the current weight and add a set instead. Form &gt; ego, always.</div>
+    <div class="fp-footer">BUILT FOR STEPHANIE · MONTH 2 · APRIL 2026</div>
   </div>
 </div>
 
 <script>
-(function() {
-  var wrap = document.querySelector('.fp-wrap');
-  if (!wrap) return;
-  var tabBar = wrap.querySelector('#fpDayTabs');
-  if (tabBar) {
-    tabBar.addEventListener('click', function(e) {
-      var tab = e.target.closest('.fp-tab');
-      if (!tab) return;
-      var day = tab.getAttribute('data-day');
-      wrap.querySelectorAll('.fp-tab').forEach(function(t) { t.classList.remove('fp-active'); });
-      wrap.querySelectorAll('.fp-day').forEach(function(d) { d.classList.remove('fp-active'); });
-      tab.classList.add('fp-active');
-      var target = wrap.querySelector('.fp-day[data-day="' + day + '"]');
-      if (target) target.classList.add('fp-active');
-      // Scroll active tab into view on mobile
-      tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-    });
-  }
-  wrap.addEventListener('click', function(e) {
-    var top = e.target.closest('.fp-exercise-top');
-    if (!top) return;
-    var card = top.closest('.fp-exercise');
-    if (!card) return;
-    card.classList.toggle('fp-open');
-    // Scroll opened card into view on mobile
-    if (card.classList.contains('fp-open')) {
-      setTimeout(function() { card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 100);
-    }
-  });
+(function(){
+  var w=document.querySelector('.fp-wrap');if(!w)return;
+  var tb=w.querySelector('#fpDayTabs');
+  if(tb){tb.addEventListener('click',function(e){var t=e.target.closest('.fp-tab');if(!t)return;var d=t.getAttribute('data-day');w.querySelectorAll('.fp-tab').forEach(function(x){x.classList.remove('fp-active')});w.querySelectorAll('.fp-day').forEach(function(x){x.classList.remove('fp-active')});t.classList.add('fp-active');var tgt=w.querySelector('.fp-day[data-day="'+d+'"]');if(tgt)tgt.classList.add('fp-active');t.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'})});}
+  w.addEventListener('click',function(e){var top=e.target.closest('.fp-exercise-top');if(!top)return;var c=top.closest('.fp-exercise');if(!c)return;c.classList.toggle('fp-open');if(c.classList.contains('fp-open')){setTimeout(function(){c.scrollIntoView({behavior:'smooth',block:'nearest'})},100);}});
 })();
 </script>
